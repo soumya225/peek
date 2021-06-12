@@ -4,6 +4,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 
 
 //TODO: build with web-renderer
+//TODO: change icons, favicon
 
 void main() async {
   await initHiveForFlutter();
@@ -34,6 +35,14 @@ class MyApp extends StatelessWidget {
       title: 'Peek',
       theme: ThemeData(
         primarySwatch: Colors.blueGrey,
+        primaryColor: Color(0xFF543855),
+        accentColor: Color(0xFFF49CAB),
+        canvasColor: Color(0xFFC2CBE6),
+        backgroundColor: Color(0xFF94A1C8),
+        cardColor: Color(0xFFFFA175),
+        highlightColor: Color(0xFFFEF9DD),
+        hintColor: Color(0xFFF49CAB),
+        fontFamily: "Montserrat"
       ),
       home: HomePage(),
     );

@@ -66,25 +66,64 @@ class _SearchByJobSkillState extends State<SearchByJobSkill> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Theme.of(context).highlightColor,
         body: SafeArea (
           child: SingleChildScrollView(
             child: Column(
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: TextField(
-                    onSubmitted: (query) {
-                      _filterSearchResults(query);
-                    },
-                    controller: _textEditingController,
-                    decoration: InputDecoration(
-                        labelText: "Search by job skill",
-                        hintText: "Enter a job skill (e.g. javascript, frontend, etc.)",
-                        prefixIcon: Icon(Icons.search),
-                        border: OutlineInputBorder(
-
-                        )
+                Container(
+                  color: Theme.of(context).backgroundColor,
+                  child: Padding(
+                    padding: const EdgeInsets.all(32.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Text(
+                          "Search by job skill",
+                          style: TextStyle(
+                              fontFamily: "BebasNeue",
+                              fontSize: 64.0,
+                              color: Theme.of(context).primaryColor
+                          ),
+                        ),
+                        Text(
+                          "Find out which job titles require a certain skill",
+                          style: TextStyle(
+                            fontSize: 16.0,
+                            color: Theme.of(context).highlightColor,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 16.0,
+                        ),
+                        TextField(
+                          onSubmitted: (query) {
+                            _filterSearchResults(query);
+                          },
+                          controller: _textEditingController,
+                          decoration: InputDecoration(
+                              hintText: "Enter a job skill (e.g. javascript, frontend, etc.)",
+                              prefixIcon: Icon(Icons.search),
+                              border: OutlineInputBorder(
+                                borderRadius:  BorderRadius.circular(30),
+                              )
+                          ),
+                        ),
+                      ],
                     ),
+                  ),
+                ),
+                SizedBox(
+                  width: 190,
+                  height: 16.0,
+                ),
+                Text(
+                  "List of jobs:",
+                  style: TextStyle(
+                      fontFamily: "BebasNeue",
+                      fontSize: 32.0,
+                      color: Theme.of(context).primaryColor
                   ),
                 ),
                 ListView.builder(

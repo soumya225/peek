@@ -1,13 +1,13 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:peek/models/job_model.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class JobTile extends StatelessWidget {
   final Job job;
 
   const JobTile({Key? key, required this.job}) : super(key: key);
-
-  //TODO: make links clickable
 
   @override
   Widget build(BuildContext context) {
@@ -23,21 +23,43 @@ class JobTile extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(height: 4.0,),
-            Text(
-              "Company website: ${job.companyWebsite}",
-              style: TextStyle(
-                color: Theme.of(context).highlightColor
-              ),
-            ),
-            SizedBox(height: 4.0,),
-            Text(
-              "Apply at: ${job.applyUrl}",
-              style: TextStyle(
+            RichText(
+              text: TextSpan(
+                style: TextStyle(
                   color: Theme.of(context).highlightColor
-              ),
+                ),
+                children: [
+                  TextSpan(text: "Company website: "),
+                  TextSpan(
+                    text: job.companyWebsite,
+                    style: TextStyle(decoration: TextDecoration.underline),
+                    recognizer: TapGestureRecognizer()..onTap = (){
+                      launch(job.companyWebsite);
+                    }
+                  ),
+                ],
+              )
             ),
             SizedBox(height: 4.0,),
-            Text(
+            RichText(
+                text: TextSpan(
+                  style: TextStyle(
+                      color: Theme.of(context).highlightColor
+                  ),
+                  children: [
+                    TextSpan(text: "Apply at: "),
+                    TextSpan(
+                        text: job.applyUrl,
+                        style: TextStyle(decoration: TextDecoration.underline),
+                        recognizer: TapGestureRecognizer()..onTap = (){
+                          launch(job.applyUrl);
+                        }
+                    ),
+                  ],
+                )
+            ),
+            SizedBox(height: 8.0,),
+            SelectableText(
               job.jobTitle.toUpperCase(),
               style: TextStyle(
                 fontFamily: "BebasNeue",
@@ -46,7 +68,7 @@ class JobTile extends StatelessWidget {
               ),
             ),
             SizedBox(height: 4.0,),
-            Text(
+            SelectableText(
               "Skills: ${tags.substring(1,tags.length-1)}",
               style: TextStyle(
                 color: Theme.of(context).highlightColor,

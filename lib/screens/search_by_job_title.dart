@@ -100,6 +100,18 @@ class _SearchByJobTitleState extends State<SearchByJobTitle> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
+                        IconButton(
+                            onPressed: () {
+                              Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => HomePage()));
+                            },
+                            icon: Icon(
+                              Icons.keyboard_arrow_left_rounded,
+                              size: 32.0,
+                            )
+                        ),
+                        SizedBox(
+                          height: 24.0,
+                        ),
                         Text(
                           "Search by job title",
                           style: TextStyle(
@@ -124,11 +136,24 @@ class _SearchByJobTitleState extends State<SearchByJobTitle> {
                           },
                           controller: _textEditingController,
                           decoration: InputDecoration(
-                              hintText: "Enter a job title",
-                              prefixIcon: Icon(Icons.search),
-                              border: OutlineInputBorder(
-                                borderRadius:  BorderRadius.circular(30),
-                              )
+                            hintText: "Enter a job title",
+                            prefixIcon: Icon(
+                              Icons.search,
+                            ),
+                            filled: true,
+                            fillColor: Theme.of(context).highlightColor,
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Theme.of(context).accentColor,
+                              ),
+                              borderRadius:  BorderRadius.circular(30),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Theme.of(context).highlightColor,
+                              ),
+                              borderRadius:  BorderRadius.circular(30),
+                            ),
                           ),
                         ),
                       ],

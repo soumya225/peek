@@ -112,7 +112,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(builder: (_) => SearchByJobTitle()));
+                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => SearchByJobTitle()));
               },
               style: _buttonStyle,
             ),

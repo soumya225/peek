@@ -1,4 +1,9 @@
+import 'dart:collection';
+
 import 'package:flutter/material.dart';
+import 'package:peek/models/job_model.dart';
+import 'package:peek/screens/home.dart';
+import 'package:peek/screens/tile.dart';
 
 class SearchByJobSkill extends StatefulWidget {
   const SearchByJobSkill({Key? key}) : super(key: key);
@@ -8,12 +13,92 @@ class SearchByJobSkill extends StatefulWidget {
 }
 
 class _SearchByJobSkillState extends State<SearchByJobSkill> {
+  TextEditingController _textEditingController = TextEditingController();
+
+  final List<Job> filteredList = [];
+  HashMap jobTitleMap = HashMap();
+
+  @override
+  void initState() {
+    filteredList.addAll(jobsList);
+    super.initState();
+  }
+
+  void _filterSearchResults (String query) {
+    query = query.toLowerCase();
+
+    List<Job> results = [];
+
+    jobTitleMap.clear();
+
+    if (query.isNotEmpty) {
+      jobsList.forEach((job) {
+        if (job.tags.contains(query)) {
+          results.add(job);
+          if(jobTitleMap.containsKey(job.jobTitle)) {
+            jobTitleMap[job.jobTitle] += 1;
+          } else {
+            jobTitleMap[job.jobTitle] = 1;
+          }
+        }
+      });
+      setState(() {
+        print(jobTitleMap);
+        filteredList.clear();
+        filteredList.addAll(results);
+      });
+    } else {
+      setState(() {
+        filteredList.clear();
+        jobsList.forEach((job) {
+          filteredList.add(job);
+          if(jobTitleMap.containsKey(job.jobTitle)) {
+            jobTitleMap[job.jobTitle] += 1;
+          } else {
+            jobTitleMap[job.jobTitle] = 1;
+          }
+        });
+        print(jobTitleMap);
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Text("Search by job skill"),
-      ),
+        body: SafeArea (
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextField(
+                    onSubmitted: (query) {
+                      _filterSearchResults(query);
+                    },
+                    controller: _textEditingController,
+                    decoration: InputDecoration(
+                        labelText: "Search by job skill",
+                        hintText: "Enter a job skill (e.g. javascript, frontend, etc.)",
+                        prefixIcon: Icon(Icons.search),
+                        border: OutlineInputBorder(
+
+                        )
+                    ),
+                  ),
+                ),
+                ListView.builder(
+                    shrinkWrap: true,
+                    scrollDirection: Axis.vertical,
+                    itemCount: filteredList.length,
+                    itemBuilder: (context, index) {
+                      return JobTile(job: filteredList[index]);
+                    }
+                ),
+              ],
+            ),
+          ),
+        )
     );
   }
 }

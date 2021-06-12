@@ -1,10 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:peek/screens/home.dart';
-import 'package:hive/hive.dart';
-import 'package:hive_flutter/hive_flutter.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 
-void main() {
-  runApp(MyApp());
+
+//TODO: build with web-renderer
+
+void main() async {
+  await initHiveForFlutter();
+
+  final Link apiLink = HttpLink("https://api.graphql.jobs/");
+
+  ValueNotifier<GraphQLClient> client = ValueNotifier(
+    GraphQLClient(
+      link: apiLink,
+      cache: GraphQLCache(store: HiveStore()),
+    ),
+  );
+
+  runApp(
+      GraphQLProvider(
+        child: MyApp(),
+        client: client,
+      )
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -15,7 +33,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Peek',
       theme: ThemeData(
-        primarySwatch: Colors.pink,
+        primarySwatch: Colors.blueGrey,
       ),
       home: HomePage(),
     );

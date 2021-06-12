@@ -34,13 +34,15 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    jobsList.clear();
+
     return Scaffold(
       body: SafeArea(
         child: Center(
           child: Query(
             options: QueryOptions(
               document: gql(query),
-              pollInterval: Duration(days: 1),
+              fetchPolicy: FetchPolicy.networkOnly,
             ),
             builder: (QueryResult result, { refetch, fetchMore }) {
               if(result.hasException)
@@ -73,6 +75,7 @@ class _HomePageState extends State<HomePage> {
                   applyUrl: job["applyUrl"],
                 );
 
+                //TODO check if this works
                 if(!jobsList.contains(newJob)) jobsList.add(newJob);
               }
 

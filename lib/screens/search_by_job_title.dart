@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:peek/models/job_model.dart';
 import 'package:peek/screens/home.dart';
 import 'package:peek/screens/tile.dart';
+import 'package:pie_chart/pie_chart.dart';
 
 class SearchByJobTitle extends StatefulWidget {
   const SearchByJobTitle({Key? key}) : super(key: key);
@@ -16,7 +17,7 @@ class _SearchByJobTitleState extends State<SearchByJobTitle> {
   TextEditingController _textEditingController = TextEditingController();
 
   final List<Job> filteredList = [];
-  HashMap tagsMap = HashMap();
+  Map<String, double> tagsMap = HashMap();
 
   @override
   void initState() {
@@ -37,7 +38,7 @@ class _SearchByJobTitleState extends State<SearchByJobTitle> {
           results.add(job);
           for(String tag in job.tags) {
             if(tagsMap.containsKey(tag)) {
-              tagsMap[tag] += 1;
+              tagsMap[tag] = 1 + tagsMap[tag]!;
             } else {
               tagsMap[tag] = 1;
             }
@@ -56,7 +57,7 @@ class _SearchByJobTitleState extends State<SearchByJobTitle> {
           filteredList.add(job);
           for(String tag in job.tags) {
             if(tagsMap.containsKey(tag)) {
-              tagsMap[tag] += 1;
+              tagsMap[tag] = 1 + tagsMap[tag]!;
             } else {
               tagsMap[tag] = 1;
             }
@@ -65,6 +66,22 @@ class _SearchByJobTitleState extends State<SearchByJobTitle> {
         print(tagsMap);
       });
     }
+  }
+
+  Widget _buildPieChart() {
+    if(tagsMap.isEmpty) return Container();
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        height: 300,
+        child: PieChart(
+          dataMap: tagsMap,
+          chartValuesOptions: ChartValuesOptions(
+            showChartValuesInPercentage: true,
+          ),
+        ),
+      ),
+    );
   }
 
   @override
@@ -91,6 +108,7 @@ class _SearchByJobTitleState extends State<SearchByJobTitle> {
                     ),
                   ),
                 ),
+                _buildPieChart(),
                 ListView.builder(
                     shrinkWrap: true,
                     scrollDirection: Axis.vertical,

@@ -49,7 +49,7 @@ class _HomePageState extends State<HomePage> {
       onPrimary: Theme.of(context).cardColor,
       primary: Theme.of(context).highlightColor,
       minimumSize: Size(
-          _screenWidth/2,_screenWidth/20
+          172, 64
       ),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
       textStyle: TextStyle(
@@ -108,7 +108,7 @@ class _HomePageState extends State<HomePage> {
               child: Text(
                 "Search by job title",
                 style: TextStyle(
-                  fontSize: _screenWidth/50
+                  fontSize: 16.0
                 ),
               ),
               onPressed: () {
@@ -121,7 +121,7 @@ class _HomePageState extends State<HomePage> {
               child: Text(
                 "Search by job skill",
                 style: TextStyle(
-                    fontSize: _screenWidth/50
+                    fontSize: 16.0
                 ),
               ),
               onPressed: () {
@@ -189,14 +189,14 @@ class _HomePageState extends State<HomePage> {
                         "An Aspiring Dev's Companion",
                         style: TextStyle(
                           fontFamily: "BebasNeue",
-                          fontSize: _screenWidth/10,
+                          fontSize: 104,
                           color: Theme.of(context).primaryColor,
                         ),
                       ),
                       Text(
                         "Get valuable insight into the current developer job market.",
                         style: TextStyle(
-                          fontSize: _screenWidth/35,
+                          fontSize: 32.0,
                           color: Theme.of(context).highlightColor,
                         ),
                       ),

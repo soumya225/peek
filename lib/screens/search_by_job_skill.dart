@@ -63,6 +63,22 @@ class _SearchByJobSkillState extends State<SearchByJobSkill> {
     }
   }
 
+  Widget _buildList() {
+    if(filteredList.length == 0)
+      return Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Text("No relevant jobs found"),
+      );
+    return ListView.builder(
+      shrinkWrap: true,
+      scrollDirection: Axis.vertical,
+      itemCount: filteredList.length,
+      itemBuilder: (context, index) {
+        return JobTile(job: filteredList[index]);
+      }
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -144,21 +160,14 @@ class _SearchByJobSkillState extends State<SearchByJobSkill> {
                   height: 16.0,
                 ),
                 Text(
-                  "List of jobs:",
+                  "List of relevant jobs:",
                   style: TextStyle(
                       fontFamily: "BebasNeue",
                       fontSize: 32.0,
                       color: Theme.of(context).primaryColor
                   ),
                 ),
-                ListView.builder(
-                    shrinkWrap: true,
-                    scrollDirection: Axis.vertical,
-                    itemCount: filteredList.length,
-                    itemBuilder: (context, index) {
-                      return JobTile(job: filteredList[index]);
-                    }
-                ),
+                _buildList(),
               ],
             ),
           ),

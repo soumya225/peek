@@ -72,15 +72,51 @@ class _SearchByJobTitleState extends State<SearchByJobTitle> {
     if(tagsMap.isEmpty) return Container();
     return Padding(
       padding: const EdgeInsets.all(32.0),
-      child: Container(
-        height: 600,
-        child: PieChart(
-          dataMap: tagsMap,
-          chartValuesOptions: ChartValuesOptions(
-            showChartValuesInPercentage: true,
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              "Breakdown of skills:",
+              style: TextStyle(
+                  fontFamily: "BebasNeue",
+                  fontSize: 32.0,
+                  color: Theme.of(context).primaryColor
+              ),
+            ),
           ),
-        ),
+          Text(
+            "This pie chart describes how many relevant jobs (i.e. jobs with the entered keyword in the job title) look for each skill"
+          ),
+          SizedBox(height: 8.0,),
+          Container(
+            height: MediaQuery.of(context).size.width < 900 ? null : 600,
+            child: PieChart(
+              dataMap: tagsMap,
+              legendOptions: LegendOptions(
+                legendPosition: MediaQuery.of(context).size.width < 900 ? LegendPosition.bottom : LegendPosition.right
+              ),
+            ),
+          ),
+        ],
       ),
+    );
+  }
+
+  Widget _buildList() {
+    if(filteredList.length == 0)
+      return Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Text("No relevant jobs found"),
+      );
+    return ListView.builder(
+      padding: EdgeInsets.all(8.0),
+      shrinkWrap: true,
+      scrollDirection: Axis.vertical,
+      itemCount: filteredList.length,
+      itemBuilder: (context, index) {
+        return JobTile(job: filteredList[index]);
+      }
     );
   }
 
@@ -169,22 +205,14 @@ class _SearchByJobTitleState extends State<SearchByJobTitle> {
                   ),
                 ),
                 Text(
-                  "List of jobs:",
+                  "List of relevant jobs:",
                   style: TextStyle(
                       fontFamily: "BebasNeue",
                       fontSize: 32.0,
                       color: Theme.of(context).primaryColor
                   ),
                 ),
-                ListView.builder(
-                  padding: EdgeInsets.all(8.0),
-                  shrinkWrap: true,
-                  scrollDirection: Axis.vertical,
-                  itemCount: filteredList.length,
-                  itemBuilder: (context, index) {
-                    return JobTile(job: filteredList[index]);
-                  }
-                ),
+                _buildList(),
               ],
             ),
           ),

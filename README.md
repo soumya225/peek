@@ -1,6 +1,6 @@
 ## Peek
 
-#### A website made with Flutter that aims to help new job seeking developers
+#### A website made with Flutter that aims to help job seeking developers
 
 <img src="homepage_screenshot.PNG" alt="Screenshot of Peek homepage"/>
 

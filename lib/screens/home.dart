@@ -189,7 +189,7 @@ class _HomePageState extends State<HomePage> {
                         "An Aspiring Dev's Companion",
                         style: TextStyle(
                           fontFamily: "BebasNeue",
-                          fontSize: 104,
+                          fontSize: 96,
                           color: Theme.of(context).primaryColor,
                         ),
                       ),

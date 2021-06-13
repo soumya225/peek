@@ -1,8 +1,8 @@
-Peek
+##Peek
 
 #### A website made with Flutter that aims to help new job seeking developers
 
-<img src="homepage_screenshot.PNG" alt="Screenshot of Peek homepage" style="height: 100px;"/>
+<img src="homepage_screenshot.PNG" alt="Screenshot of Peek homepage" style="height: 80px;"/>
 
 Peek is a web app built using Flutter that aims to help developers gain better insight into the current job market. 
 The website retrieves jobs from the GraphQL Jobs API. 

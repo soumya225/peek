@@ -2,9 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:peek/screens/home.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
-
-//TODO: build with web-renderer
-
 void main() async {
   await initHiveForFlutter();
 
